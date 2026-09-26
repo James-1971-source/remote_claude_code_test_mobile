@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>컬러 메모장</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="ocean">
+  <div class="app">
+    <!-- 제목 표시줄 -->
+    <header class="titlebar">
+      <span class="app-icon">📝</span>
+      <span id="docTitle" class="doc-title">제목 없음 - 컬러 메모장</span>
+    </header>
+
+    <!-- 메뉴 표시줄 -->
+    <nav class="menubar" id="menubar">
+      <div class="menu">
+        <button class="menu-btn">파일</button>
+        <div class="dropdown">
+          <button data-action="new">새로 만들기<kbd>Ctrl+N</kbd></button>
+          <button data-action="open">열기...<kbd>Ctrl+O</kbd></button>
+          <button data-action="save">저장<kbd>Ctrl+S</kbd></button>
+          <button data-action="saveAs">다른 이름으로 저장...<kbd>Ctrl+Shift+S</kbd></button>
+          <hr />
+          <button data-action="print">인쇄...<kbd>Ctrl+P</kbd></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn">편집</button>
+        <div class="dropdown">
+          <button data-action="undo">실행 취소<kbd>Ctrl+Z</kbd></button>
+          <button data-action="redo">다시 실행<kbd>Ctrl+Y</kbd></button>
+          <hr />
+          <button data-action="cut">잘라내기<kbd>Ctrl+X</kbd></button>
+          <button data-action="copy">복사<kbd>Ctrl+C</kbd></button>
+          <button data-action="paste">붙여넣기<kbd>Ctrl+V</kbd></button>
+          <button data-action="delete">삭제<kbd>Del</kbd></button>
+          <hr />
+          <button data-action="find">찾기...<kbd>Ctrl+F</kbd></button>
+          <button data-action="findNext">다음 찾기<kbd>F3</kbd></button>
+          <button data-action="replace">바꾸기...<kbd>Ctrl+H</kbd></button>
+          <button data-action="goto">이동...<kbd>Ctrl+G</kbd></button>
+          <hr />
+          <button data-action="selectAll">모두 선택<kbd>Ctrl+A</kbd></button>
+          <button data-action="timeDate">시간/날짜<kbd>F5</kbd></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn">서식</button>
+        <div class="dropdown">
+          <button data-action="wordWrap"><span class="check" id="chkWrap">✔</span>자동 줄 바꿈</button>
+          <button data-action="font">글꼴...</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn">보기</button>
+        <div class="dropdown">
+          <button data-action="zoomIn">확대<kbd>Ctrl++</kbd></button>
+          <button data-action="zoomOut">축소<kbd>Ctrl+-</kbd></button>
+          <button data-action="zoomReset">기본 크기로 복원<kbd>Ctrl+0</kbd></button>
+          <hr />
+          <button data-action="statusBar"><span class="check" id="chkStatus">✔</span>상태 표시줄</button>
+          <button data-action="lineNumbers"><span class="check" id="chkLines">✔</span>줄 번호</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn">색상</button>
+        <div class="dropdown">
+          <button data-action="theme" data-theme="ocean"><span class="swatch" style="--c:#2b6cb0"></span>오션 블루</button>
+          <button data-action="theme" data-theme="forest"><span class="swatch" style="--c:#2f855a"></span>포레스트 그린</button>
+          <button data-action="theme" data-theme="sunset"><span class="swatch" style="--c:#dd6b20"></span>선셋 오렌지</button>
+          <button data-action="theme" data-theme="lavender"><span class="swatch" style="--c:#805ad5"></span>라벤더 퍼플</button>
+          <button data-action="theme" data-theme="rose"><span class="swatch" style="--c:#d53f8c"></span>로즈 핑크</button>
+          <button data-action="theme" data-theme="dark"><span class="swatch" style="--c:#1a202c"></span>다크 모드</button>
+          <hr />
+          <button data-action="customColor">사용자 지정 색상...</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn">도움말</button>
+        <div class="dropdown">
+          <button data-action="about">메모장 정보</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 도구 모음 -->
+    <div class="toolbar">
+      <button data-action="new" title="새로 만들기">📄</button>
+      <button data-action="open" title="열기">📂</button>
+      <button data-action="save" title="저장">💾</button>
+      <span class="sep"></span>
+      <button data-action="undo" title="실행 취소">↶</button>
+      <button data-action="redo" title="다시 실행">↷</button>
+      <span class="sep"></span>
+      <button data-action="find" title="찾기">🔍</button>
+      <button data-action="replace" title="바꾸기">🔁</button>
+      <span class="sep"></span>
+      <button data-action="zoomOut" title="축소">A−</button>
+      <button data-action="zoomIn" title="확대">A+</button>
+      <span class="sep"></span>
+      <div class="theme-dots" id="themeDots">
+        <button class="dot" data-action="theme" data-theme="ocean" style="--c:#2b6cb0" title="오션 블루"></button>
+        <button class="dot" data-action="theme" data-theme="forest" style="--c:#2f855a" title="포레스트 그린"></button>
+        <button class="dot" data-action="theme" data-theme="sunset" style="--c:#dd6b20" title="선셋 오렌지"></button>
+        <button class="dot" data-action="theme" data-theme="lavender" style="--c:#805ad5" title="라벤더 퍼플"></button>
+        <button class="dot" data-action="theme" data-theme="rose" style="--c:#d53f8c" title="로즈 핑크"></button>
+        <button class="dot" data-action="theme" data-theme="dark" style="--c:#1a202c" title="다크 모드"></button>
+      </div>
+    </div>
+
+    <!-- 찾기/바꾸기 패널 -->
+    <div class="findbar hidden" id="findbar">
+      <input id="findInput" type="text" placeholder="찾을 내용" />
+      <input id="replaceInput" type="text" placeholder="바꿀 내용" />
+      <label><input type="checkbox" id="matchCase" /> 대/소문자 구분</label>
+      <button id="btnFindPrev">◀ 이전</button>
+      <button id="btnFindNext">다음 ▶</button>
+      <button id="btnReplace" class="replace-only">바꾸기</button>
+      <button id="btnReplaceAll" class="replace-only">모두 바꾸기</button>
+      <span id="findCount" class="find-count"></span>
+      <button id="btnFindClose" class="close">✕</button>
+    </div>
+
+    <!-- 편집 영역 -->
+    <main class="editor-wrap">
+      <div class="gutter" id="gutter" aria-hidden="true"></div>
+      <textarea id="editor" spellcheck="false" autofocus placeholder="여기에 입력하세요..."></textarea>
+    </main>
+
+    <!-- 상태 표시줄 -->
+    <footer class="statusbar" id="statusbar">
+      <span id="stPos">줄 1, 열 1</span>
+      <span id="stCount">0자 · 0단어</span>
+      <span id="stZoom">100%</span>
+      <span id="stSaved">자동 저장됨</span>
+      <span>UTF-8</span>
+    </footer>
+  </div>
+
+  <!-- 대화 상자 -->
+  <div class="modal-backdrop hidden" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle"></h3>
+      <div id="modalBody"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".txt,.md,.csv,.log,.json,.html,.css,.js,text/*" hidden />
+  <script src="app.js"></script>
+</body>
+</html>
